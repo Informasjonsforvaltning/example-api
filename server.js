@@ -1,19 +1,30 @@
-'use strict';
+const logger = require('koa-logger');
+const _ = require ('koa-route');
+const Koa = require('koa');
+const app = new Koa();
 
-const express = require('express');
-const morgan = require('morgan');
+app.use(logger());
 
-// Constants
-const PORT = 8080;
-const HOST = '0.0.0.0';
+const db = {
+  1: { name: 'tobi', species: 'ferret'},
+  2: { name: 'loki', species: 'ferret'},
+  3: { name: 'jane', species: 'ferret'}
+};
 
-// App
-const app = express();
-app.use(morgan('combined'));
+const pets = {
+  list: (ctx) => {
+    ctx.body = db;
+  },
 
-app.get('/', (req, res) => {
-  res.send('Hello world\n');
-});
+  show: (ctx, name) => {
+    const pet = db[name];
+    if (!pet) return ctx.throw('cannot find that pet', 404);
+    ctx.body = pet;
+  }
+};
 
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+app.use(_.get('/pets', pets.list));
+app.use(_.get('/pets/:name', pets.show))
+
+app.listen(8080);
+console.log('listening on port 8080');

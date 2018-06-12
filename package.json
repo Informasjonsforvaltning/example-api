@@ -10,7 +10,8 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.16.1",
-    "morgan": "^1.9.0"
+    "koa": "^2.2.0",
+    "koa-logger": "^3.2.0",
+    "koa-route": "^3.2.0"
   }
 }

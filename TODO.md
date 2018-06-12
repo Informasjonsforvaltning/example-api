@@ -1,1 +1,2 @@
-- [ ] Refactor to use koa https://github.com/koajs/koa
+- [x] Refactor to use koa https://github.com/koajs/koa
+- [ ] Add tests
