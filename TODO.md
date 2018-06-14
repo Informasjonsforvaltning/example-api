@@ -1,2 +1,5 @@
 - [x] Refactor to use koa https://github.com/koajs/koa
 - [ ] Add tests
+- [ ] Add lint
+- [ ] Add negotiation (html and text/plain)
+- [ ] Add links HATEOAS (koa-hal)
