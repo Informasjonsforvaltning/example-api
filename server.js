@@ -26,5 +26,7 @@ const pets = {
 app.use(_.get('/pets', pets.list));
 app.use(_.get('/pets/:name', pets.show))
 
-app.listen(8080);
-console.log('listening on port 8080');
+const server = app.listen(8080, function (){
+  console.log('listening on port 8080');  
+});
+module.exports = server;
