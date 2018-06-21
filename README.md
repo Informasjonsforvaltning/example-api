@@ -9,6 +9,7 @@ Finally the app folder contains an example implementation of an API that will pa
 
 <img src='https://g.gravizo.com/svg?
   digraph G {
+  Quality -> OpenAPI;
   OpenAPI -> Tests;
   Quality -> Tests;
   Tests -> API [label=" BDD-style"];
