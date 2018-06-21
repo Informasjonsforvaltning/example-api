@@ -3,3 +3,4 @@
 - [ ] Add lint
 - [ ] Add negotiation (html and text/plain)
 - [ ] Add links HATEOAS (koa-hal)
+- [ ] Document usage in README
