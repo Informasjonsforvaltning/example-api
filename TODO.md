@@ -1,6 +1,6 @@
 - [x] Refactor to use koa https://github.com/koajs/koa
 - [ ] Add tests according to https://github.com/cucumber/cucumber-js/blob/master/docs/nodejs_example.md
-- [ ] Add lint
+- [x] Add lint
 - [ ] Add negotiation (html and text/plain)
 - [ ] Add links HATEOAS (koa-hal)
-- [ ] Document usage in README
+- [x] Document usage in README
