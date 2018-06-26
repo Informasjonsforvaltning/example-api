@@ -3,6 +3,14 @@ const _ = require ('koa-route');
 const Koa = require('koa');
 const app = new Koa();
 
+// Metrics via statsd
+var StatsD = require('node-statsd');
+var metrics = new StatsD();
+metrics.increment('service.job_done');
+metrics.gauge('service.queue_size', 100);
+metrics.set('service.request_id', 10);
+metrics.timing('service.job_task', 500); // time in ms
+
 app.use(logger());
 
 const db = {
@@ -27,6 +35,6 @@ app.use(_.get('/pets', pets.list));
 app.use(_.get('/pets/:name', pets.show))
 
 const server = app.listen(8080, function (){
-  console.log('listening on port 8080');  
+  console.log('listening on port 8080');
 });
 module.exports = server;

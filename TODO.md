@@ -4,3 +4,4 @@
 - [ ] Add negotiation (html and text/plain)
 - [ ] Add links HATEOAS (koa-hal)
 - [x] Document usage in README
+- [ ] Add monitoring according to https://medium.com/@jcbaey/your-nodejs-app-deserves-grafana-influxdb-and-statsd-f61d506bdb7e and https://github.com/nicolargo/docker-influxdb-grafana
