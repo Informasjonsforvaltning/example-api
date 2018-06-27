@@ -3,9 +3,8 @@ const _ = require ('koa-route');
 const Koa = require('koa');
 const app = new Koa();
 
-// Metrics via statsd
-var StatsD = require('node-statsd');
-var metrics = new StatsD();
+var Lynx = require('lynx');
+var metrics = new Lynx('telegraf', 8125);
 metrics.increment('service.job_done');
 metrics.gauge('service.queue_size', 100);
 metrics.set('service.request_id', 10);
@@ -22,6 +21,7 @@ const db = {
 const pets = {
   list: (ctx) => {
     ctx.body = db;
+    metrics.timing('service.job_task', 500); // time in ms
   },
 
   show: (ctx, name) => {

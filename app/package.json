@@ -4,6 +4,10 @@
   "description": "Node.js on Docker",
   "author": "Stig B. Dørmænen <stigbd@gmail.com>",
   "license": "ISC",
+  "repository" :
+  { "type" : "git"
+  , "url" : "https://github.com/informasjonsforvaltning/eksempel-api.git"
+},
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
@@ -15,6 +19,7 @@
     "koa": "^2.2.0",
     "koa-logger": "^3.2.0",
     "koa-route": "^3.2.0",
+    "lynx": "^0.2.0",
     "node-statsd": "^0.1.1"
   },
   "devDependencies": {
