@@ -24,8 +24,8 @@ const pets = {
     metrics.timing('service.job_task', 500); // time in ms
   },
 
-  show: (ctx, name) => {
-    const pet = db[name];
+  show: (ctx, id) => {
+    const pet = db[id];
     if (!pet) return ctx.throw('cannot find that pet', 404);
     ctx.body = pet;
   }
