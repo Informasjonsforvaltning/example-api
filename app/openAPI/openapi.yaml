@@ -30,11 +30,11 @@
               type: "array"
               items:
                 $ref: "#/definitions/Pet"
-    /pets/{petId}:
+    /pets/{id}:
       get:
         description: "Returns a pet with the given id from the system that the user has access to"
         parameters:
-              - name: petId
+              - name: id
                 in: path
                 required: true
                 description: The id of the pet to retrieve
@@ -48,7 +48,19 @@
               type: "object"
               items:
                 $ref: "#/definitions/Pet"
-
+      delete:
+        description: deletes a single pet based on the ID supplied
+        operationId: deletePet
+        parameters:
+          - name: id
+            in: path
+            description: ID of pet to delete
+            required: true
+            type: integer
+            format: int64
+        responses:
+          "204":
+            description: pet deleted
   definitions:
     Pet:
       type: "object"
