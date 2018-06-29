@@ -30,6 +30,25 @@
               type: "array"
               items:
                 $ref: "#/definitions/Pet"
+    /pets/{petId}:
+      get:
+        description: "Returns a pet with the given id from the system that the user has access to"
+        parameters:
+              - name: petId
+                in: path
+                required: true
+                description: The id of the pet to retrieve
+                type: string
+        produces:
+          - "application/json"
+        responses:
+          "200":
+            description: "A pet with the given id."
+            schema:
+              type: "object"
+              items:
+                $ref: "#/definitions/Pet"
+
   definitions:
     Pet:
       type: "object"

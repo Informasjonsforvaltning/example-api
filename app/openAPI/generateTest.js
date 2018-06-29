@@ -3,6 +3,7 @@ var oatts = require('oatts');
 var options = {
     // see "Options" section below for available options
     "spec": "./openAPI/openapi.yaml",
+    "customValuesFile": "./openAPI/customValues.json",
     "writeTo": "./test/."
 };
 
