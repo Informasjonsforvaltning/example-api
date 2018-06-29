@@ -12,11 +12,11 @@ metrics.timing('service.job_task', 500); // time in ms
 
 app.use(logger());
 
-const db = {
-  1: { name: 'tobi', species: 'ferret'},
-  2: { name: 'loki', species: 'ferret'},
-  3: { name: 'jane', species: 'ferret'}
-};
+const db = [
+  {id: 1, name: 'tobi', species: 'ferret'},
+  {id: 2, name: 'loki', species: 'ferret'},
+  {id: 3, name: 'jane', species: 'ferret'}
+];
 
 const pets = {
   list: (ctx) => {

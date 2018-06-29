@@ -8,4 +8,4 @@ var options = {
 
 var tests = oatts.generate('./openAPI/openapi.yaml', options);
 
-//console.log(tests)
+console.log(tests)
