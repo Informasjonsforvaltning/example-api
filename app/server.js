@@ -28,11 +28,20 @@ const pets = {
     const pet = db[id];
     if (!pet) return ctx.throw('cannot find that pet', 404);
     ctx.body = pet;
+  },
+
+  delete: (ctx, id) => {
+    var pet = db[id];
+    if (!pet) return ctx.throw('cannot find that pet', 404);
+    delete db[id];
+    ctx.status = 204;
+    ctx.body = pet;
   }
 };
 
 app.use(_.get('/pets', pets.list));
-app.use(_.get('/pets/:name', pets.show))
+app.use(_.get('/pets/:id', pets.show))
+app.use(_.delete('/pets/:id', pets.delete))
 
 const server = app.listen(8080, function (){
   console.log('listening on port 8080');
