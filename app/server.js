@@ -13,9 +13,9 @@ metrics.timing('service.job_task', 500); // time in ms
 app.use(logger());
 
 const db = [
-  {id: 1, name: 'tobi', species: 'ferret'},
-  {id: 2, name: 'loki', species: 'ferret'},
-  {id: 3, name: 'jane', species: 'ferret'}
+  {id: 2, name: 'tobi', species: 'ferret'},
+  {id: 3, name: 'loki', species: 'ferret'},
+  {id: 1, name: 'jane', species: 'ferret'}
 ];
 
 const pets = {
@@ -25,17 +25,19 @@ const pets = {
   },
 
   show: (ctx, id) => {
-    const pet = db[id];
-    if (!pet) return ctx.throw('cannot find that pet', 404);
+    var pet = db.find( o => o.id === parseInt(id));
+    if (!pet) return ctx.throw(404, 'cannot find that pet');
     ctx.body = pet;
   },
 
   delete: (ctx, id) => {
-    var pet = db[id];
-    if (!pet) return ctx.throw('cannot find that pet', 404);
-    delete db[id];
+    var pet = db.find( o => o.id === parseInt(id));
+    if (!pet) return ctx.throw(404, 'cannot find that pet');
+    var index = db.indexOf(pet);
+    if (index > -1) {
+      db.splice(index, 1);
+    }
     ctx.status = 204;
-    ctx.body = pet;
   }
 };
 

@@ -4,13 +4,13 @@
   "description": "Node.js on Docker",
   "author": "Stig B. Dørmænen <stigbd@gmail.com>",
   "license": "ISC",
-  "repository" :
-  { "type" : "git"
-  , "url" : "https://github.com/informasjonsforvaltning/eksempel-api.git"
-},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/informasjonsforvaltning/eksempel-api.git"
+  },
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "./node_modules/.bin/nodemon server.js",
     "generateTest": "node ./openAPI/generateTest.js",
     "test": "mocha --exit",
     "start": "node server.js"
@@ -27,6 +27,7 @@
     "chakram": "^1.5.0",
     "cucumber": "^4.2.1",
     "mocha": "^5.2.0",
+    "nodemon": "^1.17.5",
     "oatts": "^1.2.3"
   }
 }
