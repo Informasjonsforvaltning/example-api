@@ -33,12 +33,32 @@
       post:
         summary: Create a pet
         operationId: createPets
+        consumes:
+          - application/json
+        parameters:
+          - in: body
+            name: pet
+            description: The pet to create
+            schema:
+              type: object
+              required:
+                - id
+                - name
+                - species
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                species:
+                  type: string
         responses:
           "201":
-            description: Null response
+            description: Created
             headers:
               Location:
-                type: string
+                schema:
+                  type: string
     /pets/{id}:
       get:
         description: "Returns a pet with the given id from the system that the user has access to"
