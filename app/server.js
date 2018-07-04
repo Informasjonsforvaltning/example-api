@@ -1,5 +1,6 @@
 const logger = require('koa-logger');
 const _ = require ('koa-route');
+const bodyParser = require('koa-bodyparser');
 const Koa = require('koa');
 const app = new Koa();
 
@@ -11,6 +12,7 @@ metrics.set('service.request_id', 10);
 metrics.timing('service.job_task', 500); // time in ms
 
 app.use(logger());
+app.use(bodyParser());
 
 const db = [
   {id: 2, name: 'tobi', species: 'ferret'},
@@ -22,6 +24,13 @@ const pets = {
   list: (ctx) => {
     ctx.body = db;
     metrics.timing('service.job_task', 500); // time in ms
+  },
+
+  create: (ctx) => {
+    console.log('Received body: ', ctx.request.body);
+    db.push(ctx.request.body);
+    ctx.set('Location', 'http://localhost:8080/pets/' + ctx.request.body.id);
+    ctx.status = 201;
   },
 
   show: (ctx, id) => {
@@ -42,6 +51,7 @@ const pets = {
 };
 
 app.use(_.get('/pets', pets.list));
+app.use(_.post('/pets', pets.create));
 app.use(_.get('/pets/:id', pets.show))
 app.use(_.delete('/pets/:id', pets.delete))
 

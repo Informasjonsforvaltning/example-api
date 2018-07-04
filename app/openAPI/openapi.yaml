@@ -30,6 +30,15 @@
               type: "array"
               items:
                 $ref: "#/definitions/Pet"
+      post:
+        summary: Create a pet
+        operationId: createPets
+        responses:
+          "201":
+            description: Null response
+            headers:
+              Location:
+                type: string
     /pets/{id}:
       get:
         description: "Returns a pet with the given id from the system that the user has access to"
