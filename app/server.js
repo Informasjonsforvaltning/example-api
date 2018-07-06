@@ -27,7 +27,7 @@ const pets = {
   },
 
   create: (ctx) => {
-    console.log('Received body: ', ctx.request.body);
+    console.log('Creating: ', ctx.request.body);
     db.push(ctx.request.body);
     ctx.set('Location', 'http://localhost:8080/pets/' + ctx.request.body.id);
     ctx.status = 201;
@@ -37,6 +37,18 @@ const pets = {
     var pet = db.find( o => o.id === parseInt(id));
     if (!pet) return ctx.throw(404, 'cannot find that pet');
     ctx.body = pet;
+  },
+
+  update: (ctx, id) => {
+    console.log('Updating: ', ctx.request.body);
+    var pet = db.find( o => o.id === parseInt(id));
+    if (!pet) return ctx.throw(404, 'cannot find that pet');
+    var index = db.indexOf(pet);
+    if (index > -1) {
+      db[index] = ctx.request.body;
+      db[index].id = pet.id;
+    }
+    ctx.status = 204;
   },
 
   delete: (ctx, id) => {
@@ -53,6 +65,7 @@ const pets = {
 app.use(_.get('/pets', pets.list));
 app.use(_.post('/pets', pets.create));
 app.use(_.get('/pets/:id', pets.show))
+app.use(_.put('/pets/:id', pets.update))
 app.use(_.delete('/pets/:id', pets.delete))
 
 const server = app.listen(8080, function (){

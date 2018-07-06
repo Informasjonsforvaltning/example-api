@@ -77,6 +77,33 @@
               type: "object"
               items:
                 $ref: "#/definitions/Pet"
+      put:
+        summary: Update a pet
+        operationId: updatePet
+        consumes:
+          - application/json
+        parameters:
+          - name: id
+            in: path
+            required: true
+            description: The id of the pet to update
+            type: string
+          - in: body
+            name: pet
+            description: The pet to update
+            schema:
+              type: object
+              required:
+                - name
+                - species
+              properties:
+                name:
+                  type: string
+                species:
+                  type: string
+        responses:
+          "204":
+            description: Updated
       delete:
         description: deletes a single pet based on the ID supplied
         operationId: deletePet

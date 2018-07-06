@@ -21,7 +21,7 @@ describe('tests for /pets', function() {
     describe('tests for post', function() {
         it('should respond 201 for "Created"', function() {
             var response = request('post', 'http://localhost:8080/pets', { 
-                'body': {"id":-91719506,"name":"adipisicing mollit eiusmod Lorem","species":"esse"},
+                'body': {"id":9761533,"name":"est anim in nulla","species":"dolore ad et"},
                 'headers': {"Content-Type":"application/json","Accept":"application/json"},
                 'time': true
             });

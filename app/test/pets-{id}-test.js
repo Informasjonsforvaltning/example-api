@@ -18,6 +18,19 @@ describe('tests for /pets/{id}', function() {
         });    
     });
     
+    describe('tests for put', function() {
+        it('should respond 204 for "Updated"', function() {
+            var response = request('put', 'http://localhost:8080/pets/1', { 
+                'body': {"name":"in","species":"proident"},
+                'headers': {"Content-Type":"application/json","Accept":"application/json"},
+                'time': true
+            });
+
+            expect(response).to.have.status(204)
+            return chakram.wait();
+        });    
+    });
+    
     describe('tests for delete', function() {
         it('should respond 204 for "pet deleted"', function() {
             var response = request('delete', 'http://localhost:8080/pets/1', { 
