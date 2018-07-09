@@ -42,12 +42,9 @@
             schema:
               type: object
               required:
-                - id
                 - name
                 - species
               properties:
-                id:
-                  type: integer
                 name:
                   type: string
                 species:
@@ -129,5 +126,5 @@
           format: "int64"
         name:
           type: "string"
-        tag:
+        species:
           type: "string"

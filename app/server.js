@@ -15,10 +15,11 @@ app.use(logger());
 app.use(bodyParser());
 
 const db = [
-  {id: 2, name: 'tobi', species: 'ferret'},
-  {id: 3, name: 'loki', species: 'ferret'},
-  {id: 1, name: 'jane', species: 'ferret'}
+  {id: 1, name: 'tobi', species: 'ferret'},
+  {id: 2, name: 'loki', species: 'ferret'},
+  {id: 3, name: 'jane', species: 'ferret'}
 ];
+var maxId = 3;
 
 const pets = {
   list: (ctx) => {
@@ -28,7 +29,8 @@ const pets = {
 
   create: (ctx) => {
     console.log('Creating: ', ctx.request.body);
-    db.push(ctx.request.body);
+    var index = db.push(ctx.request.body);
+    db[index-1].id = ++maxId;
     ctx.set('Location', 'http://localhost:8080/pets/' + ctx.request.body.id);
     ctx.status = 201;
   },
@@ -40,7 +42,7 @@ const pets = {
   },
 
   update: (ctx, id) => {
-    console.log('Updating: ', ctx.request.body);
+    console.log('Updating: ', id, ' ', ctx.request.body);
     var pet = db.find( o => o.id === parseInt(id));
     if (!pet) return ctx.throw(404, 'cannot find that pet');
     var index = db.indexOf(pet);
@@ -52,6 +54,7 @@ const pets = {
   },
 
   delete: (ctx, id) => {
+    console.log('Deleting: ', id);
     var pet = db.find( o => o.id === parseInt(id));
     if (!pet) return ctx.throw(404, 'cannot find that pet');
     var index = db.indexOf(pet);

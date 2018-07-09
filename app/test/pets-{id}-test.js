@@ -13,7 +13,7 @@ describe('tests for /pets/{id}', function() {
             });
 
             expect(response).to.have.status(200)
-            expect(response).to.have.schema({"type":"object","items":{"type":"object","required":["id","name"],"properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"tag":{"type":"string"}}}});
+            expect(response).to.have.schema({"type":"object","items":{"type":"object","required":["id","name"],"properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"species":{"type":"string"}}}});
             return chakram.wait();
         });    
     });
@@ -21,7 +21,7 @@ describe('tests for /pets/{id}', function() {
     describe('tests for put', function() {
         it('should respond 204 for "Updated"', function() {
             var response = request('put', 'http://localhost:8080/pets/1', { 
-                'body': {"name":"in","species":"proident"},
+                'body': {"name":"culpa adipisicing et","species":"et aute"},
                 'headers': {"Content-Type":"application/json","Accept":"application/json"},
                 'time': true
             });

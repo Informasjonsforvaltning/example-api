@@ -13,7 +13,7 @@ describe('tests for /pets', function() {
             });
 
             expect(response).to.have.status(200)
-            expect(response).to.have.schema({"type":"array","items":{"type":"object","required":["id","name"],"properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"tag":{"type":"string"}}}});
+            expect(response).to.have.schema({"type":"array","items":{"type":"object","required":["id","name"],"properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"species":{"type":"string"}}}});
             return chakram.wait();
         });    
     });
@@ -21,7 +21,7 @@ describe('tests for /pets', function() {
     describe('tests for post', function() {
         it('should respond 201 for "Created"', function() {
             var response = request('post', 'http://localhost:8080/pets', { 
-                'body': {"id":9761533,"name":"est anim in nulla","species":"dolore ad et"},
+                'body': {"name":"eiusmod cupidatat minim","species":"incididunt"},
                 'headers': {"Content-Type":"application/json","Accept":"application/json"},
                 'time': true
             });
