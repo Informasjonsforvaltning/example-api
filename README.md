@@ -11,15 +11,4 @@ Finally, most of the tests are generated from the openAPI-specifcation, while ot
 
 The app folder contains an example implementation of an API that should pass all of the tests.
 
-![Alt text](https://g.gravizo.com/source/svg/thiisthemark?http%3A%2F%2Fwww.gravizo.com)
-![Alt text](http://www.gravizo.com/img/1x1.png#
-thiisthemark
-  digraph G {
-  Usecase -> Feature;
-  Quality -> Feature;
-  Feature -> OpenAPI;
-  Feature -> Test;
-  OpenAPI -> Test;
-  Test -> API [label=" BDD-style"];
-  }
-thiisthemark
+![Alt text](./graf.svg)

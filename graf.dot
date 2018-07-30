@@ -1,0 +1,8 @@
+  digraph G {
+  Usecase -> Feature;
+  Quality -> Feature;
+  Feature -> OpenAPI;
+  Feature -> Test;
+  OpenAPI -> Test;
+  Test -> API [label=" BDD-style"];
+  }
