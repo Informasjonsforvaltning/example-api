@@ -12,4 +12,5 @@ Finally, most of the tests are generated from the openAPI-specifcation, while ot
 The app folder contains an example implementation of an API that should pass all of the tests.
 
 The following diagram illustrates this loosely:
+
 ![Alt text](./docs/graf.svg)
