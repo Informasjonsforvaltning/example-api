@@ -3,6 +3,7 @@ const _ = require ('koa-route');
 const bodyParser = require('koa-bodyparser');
 const Koa = require('koa');
 const app = new Koa();
+const responseTime = require('response-time');
 
 var StatsD = require('hot-shots');
 const options = {
@@ -16,7 +17,12 @@ metrics.socket.on('error', function(error) {
   console.error("Error in socket: ", error);
 });
 
-
+app.use(responseTime(function (req, res, time) {
+  var stat = (req.method + req.url).toLowerCase()
+    .replace(/[:\.]/g, '')
+    .replace(/\//g, '_')
+  pets.timing(stat, time)
+}))
 app.use(logger());
 app.use(bodyParser());
 
@@ -30,7 +36,7 @@ var maxId = 3;
 const pets = {
   list: (ctx) => {
     ctx.body = db;
-    metrics.increment('service.list_counter');
+    metrics.increment('pets.counter_list');
   },
 
   create: (ctx) => {
@@ -39,14 +45,14 @@ const pets = {
     db[index-1].id = ++maxId;
     ctx.set('Location', 'http://localhost:8080/pets/' + ctx.request.body.id);
     ctx.status = 201;
-    metrics.increment('service.create_counter');
+    metrics.increment('pets.counter_create');
   },
 
   show: (ctx, id) => {
     var pet = db.find( o => o.id === parseInt(id));
     if (!pet) return ctx.throw(404, 'cannot find that pet');
     ctx.body = pet;
-    metrics.increment('service.show_counter');
+    metrics.increment('pets.counter_show');
   },
 
   update: (ctx, id) => {
@@ -59,7 +65,7 @@ const pets = {
       db[index].id = pet.id;
     }
     ctx.status = 204;
-    metrics.increment('service.update_counter');
+    metrics.increment('pets.counter_update');
 },
 
   delete: (ctx, id) => {
@@ -71,7 +77,7 @@ const pets = {
       db.splice(index, 1);
     }
     ctx.status = 204;
-    metrics.increment('service.delete_counter');
+    metrics.increment('pets.counter_delete');
   }
 };
 
