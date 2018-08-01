@@ -7,7 +7,7 @@ const responseTime = require('response-time');
 
 var StatsD = require('hot-shots');
 const options = {
-  "host": "localhost",
+  "host": "telegraf",
   "port": "8125"
 }
 var metrics = new StatsD(options);
