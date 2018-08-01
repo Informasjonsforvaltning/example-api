@@ -1,0 +1,12 @@
+  digraph {
+  node [shape=box]; Tests; API;
+  node [shape=ellipse]; Usecases;Qualities;Features;OpenAPI
+    {
+      Usecases -> Features[label="translate into"];
+      Qualities -> Features;
+      Features -> OpenAPI[label=""];
+      Features -> Tests[label="  map"];
+      OpenAPI -> Tests[label="generate"];
+      Tests -> API [label="  BDD-style"];
+    }
+  }
