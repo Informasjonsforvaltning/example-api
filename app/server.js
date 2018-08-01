@@ -4,12 +4,18 @@ const bodyParser = require('koa-bodyparser');
 const Koa = require('koa');
 const app = new Koa();
 
-var Lynx = require('lynx');
-var metrics = new Lynx('telegraf', 8125);
-metrics.increment('service.job_done');
-metrics.gauge('service.queue_size', 100);
-metrics.set('service.request_id', 10);
-metrics.timing('service.job_task', 500); // time in ms
+var StatsD = require('hot-shots');
+const options = {
+  "host": "telegraf",
+  "port": "8125"
+}
+var metrics = new StatsD(options);
+// Catch socket errors so they don't go unhandled, as explained
+// in the Errors section below
+metrics.socket.on('error', function(error) {
+  console.error("Error in socket: ", error);
+});
+
 
 app.use(logger());
 app.use(bodyParser());
@@ -24,7 +30,7 @@ var maxId = 3;
 const pets = {
   list: (ctx) => {
     ctx.body = db;
-    metrics.timing('service.job_task', 500); // time in ms
+    metrics.increment('service.list_counter');
   },
 
   create: (ctx) => {
@@ -33,12 +39,14 @@ const pets = {
     db[index-1].id = ++maxId;
     ctx.set('Location', 'http://localhost:8080/pets/' + ctx.request.body.id);
     ctx.status = 201;
+    metrics.increment('service.create_counter');
   },
 
   show: (ctx, id) => {
     var pet = db.find( o => o.id === parseInt(id));
     if (!pet) return ctx.throw(404, 'cannot find that pet');
     ctx.body = pet;
+    metrics.increment('service.show_counter');
   },
 
   update: (ctx, id) => {
@@ -51,7 +59,8 @@ const pets = {
       db[index].id = pet.id;
     }
     ctx.status = 204;
-  },
+    metrics.increment('service.update_counter');
+},
 
   delete: (ctx, id) => {
     console.log('Deleting: ', id);
@@ -62,6 +71,7 @@ const pets = {
       db.splice(index, 1);
     }
     ctx.status = 204;
+    metrics.increment('service.delete_counter');
   }
 };
 

@@ -16,11 +16,11 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "hot-shots": "^5.9.0",
     "koa": "^2.5.2",
     "koa-bodyparser": "^4.2.1",
     "koa-logger": "^3.2.0",
     "koa-route": "^3.2.0",
-    "lynx": "^0.2.0",
     "node-statsd": "^0.1.1"
   },
   "devDependencies": {
