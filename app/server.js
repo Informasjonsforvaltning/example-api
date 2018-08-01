@@ -48,8 +48,8 @@ const pets = {
 
   show: (ctx, id) => {
     var starttimer = Date.now();
-    if (!pet) return ctx.throw(404, 'cannot find that pet');
     var pet = db.find( o => o.id === parseInt(id));
+    if (!pet) return ctx.throw(404, 'cannot find that pet');
     ctx.body = pet;
     metrics.timing('pets.timer_show', Date.now() - starttimer);
     metrics.increment('pets.counter_show');
