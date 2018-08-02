@@ -5,25 +5,33 @@ const Koa = require('koa');
 const app = new Koa();
 const responseTime = require('response-time');
 
-var StatsD = require('hot-shots');
-const options = {
-  "host": "telegraf",
-  "port": "8125"
+// only set up statsd if in production:
+if(process.env.NODE_ENV === 'production') {
+  var StatsD = require('hot-shots');
+  const options = {
+    "host": "telegraf",
+    "port": "8125"
+  }
+  var metrics = new StatsD(options);
+  // Catch socket errors so they don't go unhandled, as explained
+  // in the Errors section below
+  metrics.socket.on('error', function(error) {
+    console.error("Error in socket: ", error);
+  });
 }
-var metrics = new StatsD(options);
-// Catch socket errors so they don't go unhandled, as explained
-// in the Errors section below
-metrics.socket.on('error', function(error) {
-  console.error("Error in socket: ", error);
-});
 
 // Metric middleware, cf https://github.com/koajs/koa/blob/master/docs/middleware.gif
 app.use(async (ctx, next) => {
   const start = Date.now();
   await next();
   const ms = Date.now() - start;
-  metrics.timing(`pets.timer_${ctx.method}_${ctx.url}`, ms);
-  metrics.increment(`pets.counter_${ctx.method}_${ctx.url}`);
+  // In production we send metrics to statsd, otherwise to console
+  if(process.env.NODE_ENV === 'production') {
+    metrics.timing(`pets.timer_${ctx.method}_${ctx.url}`, ms);
+    metrics.increment(`pets.counter_${ctx.method}_${ctx.url}`);
+  } else {
+    console.log(`pets.timer_${ctx.method}_${ctx.url} - ${ms}`);
+  }
 });
 
 app.use(logger());
