@@ -17,6 +17,15 @@ metrics.socket.on('error', function(error) {
   console.error("Error in socket: ", error);
 });
 
+// Metric middleware, cf https://github.com/koajs/koa/blob/master/docs/middleware.gif
+app.use(async (ctx, next) => {
+  const start = Date.now();
+  await next();
+  const ms = Date.now() - start;
+  metrics.timing(`pets.timer_${ctx.method}_${ctx.url}`, ms);
+  metrics.increment(`pets.counter_${ctx.method}_${ctx.url}`);
+});
+
 app.use(logger());
 app.use(bodyParser());
 
@@ -27,11 +36,9 @@ const db = [
 ];
 var maxId = 3;
 
-// Consider refactor timing to a middleware, cf https://github.com/koajs/koa/blob/master/docs/middleware.gif
-
 // Content negotiation middleware.
 // For now we only return application/json
-app.use(async function(ctx, next) {
+app.use(async (ctx, next) => {
   await next();
   // no body? nothing to format, early return
   if (!ctx.body) return;
@@ -47,36 +54,26 @@ app.use(async function(ctx, next) {
 
 const pets = {
   list: (ctx) => {
-    var starttimer = Date.now();
     ctx.body = db;
-    metrics.timing('pets.timer_list', Date.now() - starttimer);
-    metrics.increment('pets.counter_list');
   },
 
   create: (ctx) => {
-    var starttimer = Date.now();
     console.log('Creating: ', ctx.request.body);
     var index = db.push(ctx.request.body);
     db[index-1].id = ++maxId;
     ctx.set('Location', 'http://localhost:8080/pets/' + ctx.request.body.id);
     ctx.status = 201;
-    metrics.timing('pets.timer_list', Date.now() - starttimer);
-    metrics.increment('pets.counter_create');
   },
 
   show: (ctx, id) => {
-    var starttimer = Date.now();
     var pet = db.find( o => o.id === parseInt(id));
     if (!pet) return ctx.throw(404, 'cannot find that pet');
     ctx.body = pet;
-    metrics.timing('pets.timer_show', Date.now() - starttimer);
-    metrics.increment('pets.counter_show');
   },
 
   update: (ctx, id) => {
-    var starttimer = Date.now();
-    var pet = db.find( o => o.id === parseInt(id));
     console.log('Updating: ', id, ' ', ctx.request.body);
+    var pet = db.find( o => o.id === parseInt(id));
     if (!pet) return ctx.throw(404, 'cannot find that pet');
     var index = db.indexOf(pet);
     if (index > -1) {
@@ -84,12 +81,9 @@ const pets = {
       db[index].id = pet.id;
     }
     ctx.status = 204;
-    metrics.timing('pets.timer_update', Date.now() - starttimer);
-    metrics.increment('pets.counter_update');
 },
 
   delete: (ctx, id) => {
-    var starttimer = Date.now();
     console.log('Deleting: ', id);
     var pet = db.find( o => o.id === parseInt(id));
     if (!pet) return ctx.throw(404, 'cannot find that pet');
@@ -98,8 +92,6 @@ const pets = {
       db.splice(index, 1);
     }
     ctx.status = 204;
-    metrics.timing('pets.timer_delete', Date.now() - starttimer);
-    metrics.increment('pets.counter_delete');
   }
 };
 
