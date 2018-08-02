@@ -27,6 +27,24 @@ const db = [
 ];
 var maxId = 3;
 
+// Consider refactor timing to a middleware, cf https://github.com/koajs/koa/blob/master/docs/middleware.gif
+
+// Content negotiation middleware.
+// For now we only return application/json
+app.use(async function(ctx, next) {
+  await next();
+  // no body? nothing to format, early return
+  if (!ctx.body) return;
+  // Check which type is best match by giving
+  // a list of acceptable types to `req.accepts()`.
+  const type = ctx.accepts('json');
+  // accepts json, koa handles this for us,
+  // so just return
+  if (type === 'json') return;
+  // not acceptable
+  if (type === false) ctx.throw(406);
+});
+
 const pets = {
   list: (ctx) => {
     var starttimer = Date.now();
