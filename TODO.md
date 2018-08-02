@@ -8,3 +8,4 @@
 - [x] Fix graph image in README.md (it does not show on github)
 - [x] Fix metrics reporting in server.js
 - [ ] Change model to something more relevant, e.g. Concept
+- [x] Add metric that reflects number of pets in db

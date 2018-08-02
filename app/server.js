@@ -29,6 +29,7 @@ app.use(async (ctx, next) => {
   if(process.env.NODE_ENV === 'production') {
     metrics.timing(`pets.timer_${ctx.method}_${ctx.url}`, ms);
     metrics.increment(`pets.counter_${ctx.method}_${ctx.url}`);
+    metrics.gauge('pets.gauge_numberofpets', db.length);
   } else {
     console.log(`pets.timer_${ctx.method}_${ctx.url} - ${ms}`);
   }
