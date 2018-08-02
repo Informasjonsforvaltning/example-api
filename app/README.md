@@ -14,6 +14,13 @@ docker run -d -p 8080:8080 informasjonsforvaltning/example-api
 Open your browser and navigate to http://localhost:8080/pets
 or e.g.
 ```
-curl -i -X GET http://localhost:8080/pets
-curl -i -X GET http://localhost:8080/pets/1
+curl -i -X GET http://localhost:8080/pets -w "\n"
+curl -i -X GET http://localhost:8080/pets/1 -w "\n"
+curl \
+  --include \
+  --header "Content-Type: application/json"  \
+  --request POST \
+  --data '{"name":"Garfield","species":"cat"}' \
+  --url http://localhost:8080/pets \
+  --write-out "\n"
 ```

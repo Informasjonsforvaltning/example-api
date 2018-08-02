@@ -6,5 +6,5 @@
 - [x] Refactor out monitoring to https://github.com/informasjonsforvaltning/example-monitoring
 - [x] Document test-generator usage
 - [x] Fix graph image in README.md (it does not show on github)
-- [ ] Fix metrics reporting in server.js
+- [x] Fix metrics reporting in server.js
 - [ ] Change model to something more relevant, e.g. Concept
