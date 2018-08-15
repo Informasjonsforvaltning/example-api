@@ -59,7 +59,13 @@ app.use(async (ctx, next) => {
 
 const naeringskoder = {
   list: (ctx) => {
-    ctx.body = db;
+    // We accept a query on 'nacekode':
+    if (ctx.query.nacekode) {
+      console.log("searching for ", ctx.query.nacekode);
+      ctx.body = db.find( o => o.nacekode === ctx.query.nacekode);
+    } else {
+      ctx.body = db; // otherwise return the whole lot
+    }
   },
 
   create: (ctx) => {
