@@ -6,14 +6,13 @@ fs.readFile( __dirname + '/nace_beskrivelse.tab', function (err, data) {
     throw err;
   }
 
-  var r = [];
+// Split data into array by lines:
   var l = data.toString().split('\r\n');
   for (var i = 0; i < l.length; i++) {
-    //console.log(l[i]);
+    // Split the line into array by tab
     var a = l[i].split('\t');
-    for (var j = 0; j < a.length; j++) {
-      console.log(a[j]);
-    };
+
+    // Create a Json object:
     var o;
     if (!a[2]) {
       o = JSON.stringify({
@@ -26,6 +25,8 @@ fs.readFile( __dirname + '/nace_beskrivelse.tab', function (err, data) {
     }
 
     console.log('Json: ', o);
+    
+    // Post the object to our endpoint
     var request = new http.ClientRequest({
       hostname: "localhost",
       port: 8080,
