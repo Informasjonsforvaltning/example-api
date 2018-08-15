@@ -77,28 +77,28 @@ const naeringskoder = {
   },
 
   show: (ctx, id) => {
-    var pet = db.find( o => o.id === parseInt(id));
-    if (!pet) return ctx.throw(404, 'cannot find that pet');
-    ctx.body = pet;
+    var naeringskode = db.find( o => o.id === parseInt(id));
+    if (!naeringskode) return ctx.throw(404, 'cannot find that naeringskode');
+    ctx.body = naeringskode;
   },
 
   update: (ctx, id) => {
     console.log('Updating: ', id, ' ', ctx.request.body);
-    var pet = db.find( o => o.id === parseInt(id));
-    if (!pet) return ctx.throw(404, 'cannot find that pet');
-    var index = db.indexOf(pet);
+    var naeringskode = db.find( o => o.id === parseInt(id));
+    if (!naeringskode) return ctx.throw(404, 'cannot find that naeringskode');
+    var index = db.indexOf(naeringskode);
     if (index > -1) {
       db[index] = ctx.request.body;
-      db[index].id = pet.id;
+      db[index].id = naeringskode.id;
     }
     ctx.status = 204;
 },
 
   delete: (ctx, id) => {
     console.log('Deleting: ', id);
-    var pet = db.find( o => o.id === parseInt(id));
-    if (!pet) return ctx.throw(404, 'cannot find that pet');
-    var index = db.indexOf(pet);
+    var naeringskode = db.find( o => o.id === parseInt(id));
+    if (!naeringskode) return ctx.throw(404, 'cannot find that naeringskode');
+    var index = db.indexOf(naeringskode);
     if (index > -1) {
       db.splice(index, 1);
     }
