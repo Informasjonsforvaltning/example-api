@@ -27,23 +27,19 @@ app.use(async (ctx, next) => {
   const ms = Date.now() - start;
   // In production we send metrics to statsd, otherwise to console
   if(process.env.NODE_ENV === 'production') {
-    metrics.timing(`pets.timer_${ctx.method}_${ctx.url}`, ms);
-    metrics.increment(`pets.counter_${ctx.method}_${ctx.url}`);
-    metrics.gauge('pets.gauge_numberofpets', db.length);
+    metrics.timing(`naeringskoder.timer_${ctx.method}_${ctx.url}`, ms);
+    metrics.increment(`naeringskoder.counter_${ctx.method}_${ctx.url}`);
+    metrics.gauge('naeringskoder.gauge_numberofnaeringskoder', db.length);
   } else {
-    console.log(`pets.timer_${ctx.method}_${ctx.url} - ${ms}`);
+    console.log(`naeringskoder.timer_${ctx.method}_${ctx.url} - ${ms}`);
   }
 });
 
 app.use(logger());
 app.use(bodyParser());
 
-const db = [
-  {id: 1, name: 'tobi', species: 'ferret'},
-  {id: 2, name: 'loki', species: 'ferret'},
-  {id: 3, name: 'jane', species: 'ferret'}
-];
-var maxId = 3;
+const db = [];
+var maxId = 0;
 
 // Content negotiation middleware.
 // For now we only return application/json
@@ -61,7 +57,7 @@ app.use(async (ctx, next) => {
   if (type === false) ctx.throw(406);
 });
 
-const pets = {
+const naeringskoder = {
   list: (ctx) => {
     ctx.body = db;
   },
@@ -70,7 +66,7 @@ const pets = {
     console.log('Creating: ', ctx.request.body);
     var index = db.push(ctx.request.body);
     db[index-1].id = ++maxId;
-    ctx.set('Location', 'http://localhost:8080/pets/' + ctx.request.body.id);
+    ctx.set('Location', 'http://localhost:8080/naeringskoder/' + ctx.request.body.id);
     ctx.status = 201;
   },
 
@@ -104,11 +100,11 @@ const pets = {
   }
 };
 
-app.use(_.get('/pets', pets.list));
-app.use(_.post('/pets', pets.create));
-app.use(_.get('/pets/:id', pets.show));
-app.use(_.put('/pets/:id', pets.update));
-app.use(_.delete('/pets/:id', pets.delete));
+app.use(_.get('/naeringskoder', naeringskoder.list));
+app.use(_.post('/naeringskoder', naeringskoder.create));
+app.use(_.get('/naeringskoder/:id', naeringskoder.show));
+app.use(_.put('/naeringskoder/:id', naeringskoder.update));
+app.use(_.delete('/naeringskoder/:id', naeringskoder.delete));
 
 const server = app.listen(8080, function (){
   console.log('listening on port 8080');
