@@ -61,8 +61,25 @@ const naeringskoder = {
   list: (ctx) => {
     // We accept a query on 'nacekode':
     if (ctx.query.nacekode) {
-      console.log("searching for ", ctx.query.nacekode);
-      ctx.body = db.find( o => o.nacekode === ctx.query.nacekode);
+      console.log("searching for nacekode", ctx.query.nacekode);
+      var res = [];
+      for (var i = 0; i < db.length; i++) {
+        if (db[i].nacekode && db[i].nacekode === ctx.query.nacekode) {
+          res.push(db[i]);
+        }
+      }
+      ctx.body = res;
+    }
+    // We also accept a query on 'beskrivelse':
+    else if (ctx.query.beskrivelse) {
+      console.log("searching for beskrivelse", ctx.query.beskrivelse);
+      var res = [];
+      for (var i = 0; i < db.length; i++) {
+        if (db[i].beskrivelse && db[i].beskrivelse.toLowerCase().includes(ctx.query.beskrivelse.toLowerCase())) {
+          res.push(db[i]);
+        }
+      }
+      ctx.body = res;
     } else {
       ctx.body = db; // otherwise return the whole lot
     }
