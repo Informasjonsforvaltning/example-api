@@ -16,21 +16,21 @@ fs.readFile( __dirname + '/nace_beskrivelse.tab', function (err, data) {
     var o;
     if (!a[2]) {
       o = JSON.stringify({
-        nacekode: a[0], beskrivelse: a[1]
+        industrialcode: a[0], description: a[1]
       });
     } else {
       o = JSON.stringify({
-        nacekode: a[0], beskrivelse: a[1] + ' ' + a[2]
+        industrialcode: a[0], description: a[1] + ' ' + a[2]
       });
     }
 
     console.log('Json: ', o);
-    
+
     // Post the object to our endpoint
     var request = new http.ClientRequest({
       hostname: "localhost",
       port: 8080,
-      path: "/naeringskoder",
+      path: "/industrialcodes",
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -27,11 +27,11 @@ app.use(async (ctx, next) => {
   const ms = Date.now() - start;
   // In production we send metrics to statsd, otherwise to console
   if(process.env.NODE_ENV === 'production') {
-    metrics.timing(`naeringskoder.timer_${ctx.method}_${ctx.url}`, ms);
-    metrics.increment(`naeringskoder.counter_${ctx.method}_${ctx.url}`);
-    metrics.gauge('naeringskoder.gauge_numberofnaeringskoder', db.length);
+    metrics.timing(`industrialcodes.timer_${ctx.method}_${ctx.url}`, ms);
+    metrics.increment(`industrialcodes.counter_${ctx.method}_${ctx.url}`);
+    metrics.gauge('industrialcodes.gauge_numberofindustrialcodes', db.length);
   } else {
-    console.log(`naeringskoder.timer_${ctx.method}_${ctx.url} - ${ms}`);
+    console.log(`industrialcodes.timer_${ctx.method}_${ctx.url} - ${ms}`);
   }
 });
 
@@ -57,7 +57,7 @@ app.use(async (ctx, next) => {
   if (type === false) ctx.throw(406);
 });
 
-const naeringskoder = {
+const industrialcodes = {
   list: (ctx) => {
     // We accept a query on 'nacekode':
     if (ctx.query.nacekode) {
@@ -89,33 +89,33 @@ const naeringskoder = {
     console.log('Creating: ', ctx.request.body);
     var index = db.push(ctx.request.body);
     db[index-1].id = ++maxId;
-    ctx.set('Location', 'http://localhost:8080/naeringskoder/' + ctx.request.body.id);
+    ctx.set('Location', 'http://localhost:8080/industrialcodes/' + ctx.request.body.id);
     ctx.status = 201;
   },
 
   show: (ctx, id) => {
-    var naeringskode = db.find( o => o.id === parseInt(id));
-    if (!naeringskode) return ctx.throw(404, 'cannot find that naeringskode');
-    ctx.body = naeringskode;
+    var industrialcode = db.find( o => o.id === parseInt(id));
+    if (!industrialcode) return ctx.throw(404, 'cannot find that industrialcode');
+    ctx.body = industrialcode;
   },
 
   update: (ctx, id) => {
     console.log('Updating: ', id, ' ', ctx.request.body);
-    var naeringskode = db.find( o => o.id === parseInt(id));
-    if (!naeringskode) return ctx.throw(404, 'cannot find that naeringskode');
-    var index = db.indexOf(naeringskode);
+    var industrialcode = db.find( o => o.id === parseInt(id));
+    if (!industrialcode) return ctx.throw(404, 'cannot find that industrialcode');
+    var index = db.indexOf(industrialcode);
     if (index > -1) {
       db[index] = ctx.request.body;
-      db[index].id = naeringskode.id;
+      db[index].id = industrialcode.id;
     }
     ctx.status = 204;
 },
 
   delete: (ctx, id) => {
     console.log('Deleting: ', id);
-    var naeringskode = db.find( o => o.id === parseInt(id));
-    if (!naeringskode) return ctx.throw(404, 'cannot find that naeringskode');
-    var index = db.indexOf(naeringskode);
+    var industrialcode = db.find( o => o.id === parseInt(id));
+    if (!industrialcode) return ctx.throw(404, 'cannot find that industrialcode');
+    var index = db.indexOf(industrialcode);
     if (index > -1) {
       db.splice(index, 1);
     }
@@ -123,11 +123,11 @@ const naeringskoder = {
   }
 };
 
-app.use(_.get('/naeringskoder', naeringskoder.list));
-app.use(_.post('/naeringskoder', naeringskoder.create));
-app.use(_.get('/naeringskoder/:id', naeringskoder.show));
-app.use(_.put('/naeringskoder/:id', naeringskoder.update));
-app.use(_.delete('/naeringskoder/:id', naeringskoder.delete));
+app.use(_.get('/industrialcodes', industrialcodes.list));
+app.use(_.post('/industrialcodes', industrialcodes.create));
+app.use(_.get('/industrialcodes/:id', industrialcodes.show));
+app.use(_.put('/industrialcodes/:id', industrialcodes.update));
+app.use(_.delete('/industrialcodes/:id', industrialcodes.delete));
 
 const server = app.listen(8080, function (){
   console.log('listening on port 8080');

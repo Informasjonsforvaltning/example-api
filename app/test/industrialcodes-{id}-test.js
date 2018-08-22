@@ -4,10 +4,10 @@ var chakram = require('chakram');
 var request = chakram.request;
 var expect = chakram.expect;
 
-describe('tests for /pets/{id}', function() {
+describe('tests for /industrialcodes/{id}', function() {
     describe('tests for get', function() {
-        it('should respond 200 for "A pet with the given id."', function() {
-            var response = request('get', 'http://localhost:8080/pets/1', { 
+        it('should respond 200 for "An industrial code with the given id."', function() {
+            var response = request('get', 'http://localhost:8080/industrialcodes/1', { 
                 'headers': {"Content-Type":"application/json","Accept":"application/json"},
                 'time': true
             });
@@ -20,8 +20,8 @@ describe('tests for /pets/{id}', function() {
     
     describe('tests for put', function() {
         it('should respond 204 for "Updated"', function() {
-            var response = request('put', 'http://localhost:8080/pets/1', { 
-                'body': {"name":"culpa adipisicing et","species":"et aute"},
+            var response = request('put', 'http://localhost:8080/industrialcodes/1', { 
+                'body': {"name":"amet consectetur in in","species":"aliquip velit Excepteur laboris"},
                 'headers': {"Content-Type":"application/json","Accept":"application/json"},
                 'time': true
             });
@@ -32,8 +32,8 @@ describe('tests for /pets/{id}', function() {
     });
     
     describe('tests for delete', function() {
-        it('should respond 204 for "pet deleted"', function() {
-            var response = request('delete', 'http://localhost:8080/pets/1', { 
+        it('should respond 204 for "industrial code deleted"', function() {
+            var response = request('delete', 'http://localhost:8080/industrialcodes/1', { 
                 'headers': {"Content-Type":"application/json","Accept":"application/json"},
                 'time': true
             });
