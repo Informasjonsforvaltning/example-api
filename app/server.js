@@ -59,23 +59,23 @@ app.use(async (ctx, next) => {
 
 const industrialcodes = {
   list: (ctx) => {
-    // We accept a query on 'nacekode':
-    if (ctx.query.nacekode) {
-      console.log("searching for nacekode", ctx.query.nacekode);
+    // We accept a query on 'industrialcode':
+    if (ctx.query.industrialcode) {
+      console.log("searching for industrialcode", ctx.query.industrialcode);
       var res = [];
       for (var i = 0; i < db.length; i++) {
-        if (db[i].nacekode && db[i].nacekode === ctx.query.nacekode) {
+        if (db[i].industrialcode && db[i].industrialcode === ctx.query.industrialcode) {
           res.push(db[i]);
         }
       }
       ctx.body = res;
     }
-    // We also accept a query on 'beskrivelse':
-    else if (ctx.query.beskrivelse) {
-      console.log("searching for beskrivelse", ctx.query.beskrivelse);
+    // We also accept a query on 'description':
+    else if (ctx.query.description) {
+      console.log("searching for description", ctx.query.description);
       var res = [];
       for (var i = 0; i < db.length; i++) {
-        if (db[i].beskrivelse && db[i].beskrivelse.toLowerCase().includes(ctx.query.beskrivelse.toLowerCase())) {
+        if (db[i].description && db[i].description.toLowerCase().includes(ctx.query.description.toLowerCase())) {
           res.push(db[i]);
         }
       }
