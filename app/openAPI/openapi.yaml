@@ -18,27 +18,27 @@
   produces:
     - "application/json"
   paths:
-    /pets:
+    /industrialcodes:
       get:
-        description: "Returns all pets from the system that the user has access to"
+        description: "Returns all industrial codes from the system that the user has access to"
         produces:
           - "application/json"
         responses:
           "200":
-            description: "A list of pets."
+            description: "A list of industrial codes."
             schema:
               type: "array"
               items:
-                $ref: "#/definitions/Pet"
+                $ref: "#/definitions/industrialcode"
       post:
-        summary: Create a pet
-        operationId: createPets
+        summary: Create an industrial code
+        operationId: createIndustrialcodes
         consumes:
           - application/json
         parameters:
           - in: body
-            name: pet
-            description: The pet to create
+            name: industrialcode
+            description: The industrial code to create
             schema:
               type: object
               required:
@@ -56,38 +56,38 @@
               Location:
                 schema:
                   type: string
-    /pets/{id}:
+    /industrialcodes/{id}:
       get:
-        description: "Returns a pet with the given id from the system that the user has access to"
+        description: "Returns an industrial code with the given id from the system that the user has access to"
         parameters:
               - name: id
                 in: path
                 required: true
-                description: The id of the pet to retrieve
+                description: The id of the industrial code to retrieve
                 type: string
         produces:
           - "application/json"
         responses:
           "200":
-            description: "A pet with the given id."
+            description: "An industrial code with the given id."
             schema:
               type: "object"
               items:
-                $ref: "#/definitions/Pet"
+                $ref: "#/definitions/Industrialcode"
       put:
-        summary: Update a pet
-        operationId: updatePet
+        summary: Update an industrial code
+        operationId: updateIndustrialcode
         consumes:
           - application/json
         parameters:
           - name: id
             in: path
             required: true
-            description: The id of the pet to update
+            description: The id of the industrial code to update
             type: string
           - in: body
-            name: pet
-            description: The pet to update
+            name: industrialcode
+            description: The industrial code to update
             schema:
               type: object
               required:
@@ -102,20 +102,20 @@
           "204":
             description: Updated
       delete:
-        description: deletes a single pet based on the ID supplied
-        operationId: deletePet
+        description: deletes a single industrial code based on the ID supplied
+        operationId: deleteIndustrialcode
         parameters:
           - name: id
             in: path
-            description: ID of pet to delete
+            description: ID of industrial code to delete
             required: true
             type: integer
             format: int64
         responses:
           "204":
-            description: pet deleted
+            description: industrial code deleted
   definitions:
-    Pet:
+    Industrialcode:
       type: "object"
       required:
         - "id"
