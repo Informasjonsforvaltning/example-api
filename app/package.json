@@ -13,7 +13,8 @@
     "dev": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon server.js",
     "generateTest": "node ./test/generateTest.js",
     "test": "mocha --exit",
-    "start": "cross-env NODE_ENV=production node server.js"
+    "start": "cross-env NODE_ENV=production node server.js",
+    "lint" : "./node_modules/.bin/speccy lint ./openAPI/industrialcodes_3.0.yaml"
   },
   "dependencies": {
     "hot-shots": "^5.9.0",
@@ -31,6 +32,7 @@
     "cucumber": "^4.2.1",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.3",
-    "oatts": "^1.2.3"
+    "oatts": "^1.2.3",
+    "speccy": "^0.8.1"
   }
 }
