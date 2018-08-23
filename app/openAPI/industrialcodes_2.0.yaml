@@ -3,11 +3,11 @@ info:
   version: 1.0.0
   title: Example API
   description: An example API that demonstrates REST-api implementation best practice in Brønnøysundregistrene
-  termsOfService: 'http://swagger.io/terms/'
   contact:
     name: Informasjonsforvaltning API Team
   license:
-    name: MIT
+    name: Norsk lisens for offentlige data (NLOD) 2.0
+    url: https://data.norge.no/nlod/no/2.0
 host: 'localhost:8080'
 schemes:
   - http
