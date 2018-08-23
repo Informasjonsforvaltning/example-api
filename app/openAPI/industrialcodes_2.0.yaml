@@ -19,6 +19,7 @@ paths:
   /industrialcodes:
     get:
       description: Returns all industrial codes from the system that the user has access to
+      operationId: getIndustrialcodes
       produces:
         - application/json
       responses:
@@ -29,7 +30,7 @@ paths:
             items:
               $ref: '#/definitions/industrialcode'
     post:
-      summary: Create an industrial code
+      description: Create an industrial code
       operationId: createIndustrialcodes
       consumes:
         - application/json
@@ -53,6 +54,7 @@ paths:
   '/industrialcodes/{id}':
     get:
       description: Returns an industrial code with the given id from the system that the user has access to
+      operationId: getIndustrialcode
       parameters:
         - name: id
           in: path
@@ -69,7 +71,7 @@ paths:
             items:
               $ref: '#/definitions/industrialcode'
     put:
-      summary: Update an industrial code
+      description: Update an industrial code
       operationId: updateIndustrialcode
       consumes:
         - application/json
