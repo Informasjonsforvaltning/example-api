@@ -13,7 +13,7 @@ describe('tests for /industrialcodes/{id}', function() {
             });
 
             expect(response).to.have.status(200)
-            expect(response).to.have.schema({"type":"object","items":{"type":"object","required":["id","name"],"properties":{"id":{"type":"integer","format":"int64"},"name":{"type":"string"},"species":{"type":"string"}}}});
+            expect(response).to.have.schema({"type":"object","items":{"type":"object","required":["id","industrialcode","description"],"properties":{"id":{"type":"integer","format":"int64"},"industrialcode":{"type":"string"},"description":{"type":"string"}}}});
             return chakram.wait();
         });    
     });
@@ -21,7 +21,7 @@ describe('tests for /industrialcodes/{id}', function() {
     describe('tests for put', function() {
         it('should respond 204 for "Updated"', function() {
             var response = request('put', 'http://localhost:8080/industrialcodes/1', { 
-                'body': {"name":"amet consectetur in in","species":"aliquip velit Excepteur laboris"},
+                'body': {"industrialcode":"ea reprehenderit","description":"mollit"},
                 'headers': {"Content-Type":"application/json","Accept":"application/json"},
                 'time': true
             });

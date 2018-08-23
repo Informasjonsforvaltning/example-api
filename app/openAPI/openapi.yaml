@@ -1,130 +1,125 @@
----
-  OpenAPI: "2.0"
-  info:
-    version: "1.0.0"
-    title: "Example API"
-    description: "An example API that demonstrates REST-api implementation best practice in Brønnøysundregistrene"
-    termsOfService: "http://swagger.io/terms/"
-    contact:
-      name: "Informasjonsforvaltning API Team"
-    license:
-      name: "MIT"
-  host: "localhost:8080"
-  basePath: ""
-  schemes:
-    - "http"
-  consumes:
-    - "application/json"
-  produces:
-    - "application/json"
-  paths:
-    /industrialcodes:
-      get:
-        description: "Returns all industrial codes from the system that the user has access to"
-        produces:
-          - "application/json"
-        responses:
-          "200":
-            description: "A list of industrial codes."
-            schema:
-              type: "array"
-              items:
-                $ref: "#/definitions/industrialcode"
-      post:
-        summary: Create an industrial code
-        operationId: createIndustrialcodes
-        consumes:
-          - application/json
-        parameters:
-          - in: body
-            name: industrialcode
-            description: The industrial code to create
-            schema:
-              type: object
-              required:
-                - name
-                - species
-              properties:
-                name:
-                  type: string
-                species:
-                  type: string
-        responses:
-          "201":
-            description: Created
-            headers:
-              Location:
-                schema:
-                  type: string
-    /industrialcodes/{id}:
-      get:
-        description: "Returns an industrial code with the given id from the system that the user has access to"
-        parameters:
-              - name: id
-                in: path
-                required: true
-                description: The id of the industrial code to retrieve
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: Example API
+  description: An example API that demonstrates REST-api implementation best practice in Brønnøysundregistrene
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    name: Informasjonsforvaltning API Team
+  license:
+    name: MIT
+host: 'localhost:8080'
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /industrialcodes:
+    get:
+      description: Returns all industrial codes from the system that the user has access to
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: A list of industrial codes.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/industrialcode'
+    post:
+      summary: Create an industrial code
+      operationId: createIndustrialcodes
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: industrialcode
+          description: The industrial code to create
+          schema:
+            type: object
+            required:
+              - industrialcode
+              - description
+            properties:
+              industrialcode:
                 type: string
-        produces:
-          - "application/json"
-        responses:
-          "200":
-            description: "An industrial code with the given id."
-            schema:
-              type: "object"
-              items:
-                $ref: "#/definitions/Industrialcode"
-      put:
-        summary: Update an industrial code
-        operationId: updateIndustrialcode
-        consumes:
-          - application/json
-        parameters:
-          - name: id
-            in: path
-            required: true
-            description: The id of the industrial code to update
-            type: string
-          - in: body
-            name: industrialcode
-            description: The industrial code to update
-            schema:
-              type: object
-              required:
-                - name
-                - species
-              properties:
-                name:
-                  type: string
-                species:
-                  type: string
-        responses:
-          "204":
-            description: Updated
-      delete:
-        description: deletes a single industrial code based on the ID supplied
-        operationId: deleteIndustrialcode
-        parameters:
-          - name: id
-            in: path
-            description: ID of industrial code to delete
-            required: true
-            type: integer
-            format: int64
-        responses:
-          "204":
-            description: industrial code deleted
-  definitions:
-    Industrialcode:
-      type: "object"
-      required:
-        - "id"
-        - "name"
-      properties:
-        id:
-          type: "integer"
-          format: "int64"
-        name:
-          type: "string"
-        species:
-          type: "string"
+              description:
+                type: string
+      responses:
+        201:
+          description: Created
+  '/industrialcodes/{id}':
+    get:
+      description: Returns an industrial code with the given id from the system that the user has access to
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the industrial code to retrieve
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: An industrial code with the given id.
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/industrialcode'
+    put:
+      summary: Update an industrial code
+      operationId: updateIndustrialcode
+      consumes:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the industrial code to update
+          type: string
+        - in: body
+          name: industrialcode
+          description: The industrial code to update
+          schema:
+            type: object
+            required:
+              - industrialcode
+              - description
+            properties:
+              industrialcode:
+                type: string
+              description:
+                type: string
+      responses:
+        '204':
+          description: Updated
+    delete:
+      description: deletes a single industrial code based on the ID supplied
+      operationId: deleteIndustrialcode
+      parameters:
+        - name: id
+          in: path
+          description: ID of industrial code to delete
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: industrial code deleted
+definitions:
+  industrialcode:
+    type: object
+    required:
+      - id
+      - industrialcode
+      - description
+    properties:
+      id:
+        type: integer
+        format: int64
+      industrialcode:
+        type: string
+      description:
+        type: string
