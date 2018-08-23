@@ -10,10 +10,15 @@ info:
   license:
     name: Norsk lisens for offentlige data (NLOD) 2.0
     url: https://data.norge.no/nlod/no/2.0
+tags:
+  - name: Industrialcode
 paths:
   /industrialcodes:
     get:
       description: Returns all industrial codes from the system that the user has access to
+      operationId: listIndustrialcodes
+      tags:
+        - Industrialcode
       responses:
         '200':
           description: A list of industrial codes.
@@ -24,8 +29,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/industrialcode'
     post:
-      summary: Create an industrial code
+      description: Create an industrial code
       operationId: createIndustrialcodes
+      tags:
+        - Industrialcode
       responses:
         '201':
           description: Created
@@ -48,6 +55,9 @@ paths:
       description: >-
         Returns an industrial code with the given id from the system that the
         user has access to
+      operationId: getIndustrialcode
+      tags:
+        - Industrialcode
       parameters:
         - name: id
           in: path
@@ -65,8 +75,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/industrialcode'
     put:
-      summary: Update an industrial code
+      description: Update an industrial code
       operationId: updateIndustrialcode
+      tags:
+        - Industrialcode
       parameters:
         - name: id
           in: path
@@ -94,6 +106,8 @@ paths:
     delete:
       description: deletes a single industrial code based on the ID supplied
       operationId: deleteIndustrialcode
+      tags:
+        - Industrialcode
       parameters:
         - name: id
           in: path
@@ -106,7 +120,7 @@ paths:
         '204':
           description: industrial code deleted
 servers:
-  - url: 'http://localhost:8080/'
+  - url: 'http://localhost:8080'
 components:
   schemas:
     industrialcode:
