@@ -30,7 +30,7 @@ fs.readFile( __dirname + '/nace_beskrivelse.tab', function (err, data) {
     var request = new http.ClientRequest({
       hostname: "localhost",
       port: 8080,
-      path: "/industrialcodes",
+      path: "/api/industrialcodes",
       method: "POST",
       headers: {
         "Content-Type": "application/json",

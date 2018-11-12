@@ -49,10 +49,12 @@ app.use(async (ctx, next) => {
   if (!ctx.body) return;
   // Check which type is best match by giving
   // a list of acceptable types to `req.accepts()`.
-  const type = ctx.accepts('json');
+  const type = ctx.accepts('json', 'html');
   // accepts json, koa handles this for us,
   // so just return
   if (type === 'json') return;
+  // in some cases we accept html
+  if (type === 'html') return;
   // not acceptable
   if (type === false) ctx.throw(406);
 });
@@ -89,13 +91,18 @@ const industrialcodes = {
     console.log('Creating: ', ctx.request.body);
     var index = db.push(ctx.request.body);
     db[index-1].id = ++maxId;
-    ctx.set('Location', 'http://localhost:8080/industrialcodes/' + ctx.request.body.id);
+    ctx.set('Location', 'http://localhost:8080/api/industrialcodes/' + ctx.request.body.id);
     ctx.status = 201;
   },
 
   show: (ctx, id) => {
     var industrialcode = db.find( o => o.id === parseInt(id));
     if (!industrialcode) return ctx.throw(404, 'cannot find that industrialcode');
+    if (ctx.accepts('text/html')) {
+      ctx.status = 303;
+      ctx.set('Location', 'http://localhost:8080/industrialcodes/' + id);
+      return;
+    }
     ctx.body = industrialcode;
   },
 
@@ -123,11 +130,11 @@ const industrialcodes = {
   }
 };
 
-app.use(_.get('/industrialcodes', industrialcodes.list));
-app.use(_.post('/industrialcodes', industrialcodes.create));
-app.use(_.get('/industrialcodes/:id', industrialcodes.show));
-app.use(_.put('/industrialcodes/:id', industrialcodes.update));
-app.use(_.delete('/industrialcodes/:id', industrialcodes.delete));
+app.use(_.get('/api/industrialcodes', industrialcodes.list));
+app.use(_.post('/api/industrialcodes', industrialcodes.create));
+app.use(_.get('/api/industrialcodes/:id', industrialcodes.show));
+app.use(_.put('/api/industrialcodes/:id', industrialcodes.update));
+app.use(_.delete('/api/industrialcodes/:id', industrialcodes.delete));
 
 const server = app.listen(8080, function (){
   console.log('listening on port 8080');
