@@ -11,14 +11,45 @@ info:
     name: Norsk lisens for offentlige data (NLOD) 2.0
     url: https://data.norge.no/nlod/no/2.0
 tags:
-  - name: Industrialcode
+  - name: industrialcode
+  - name: slash
+  - name: api
+servers:
+  - url: http://br-07776l.brreg.no:8080
+    description: Development server
 paths:
+  /:
+    get:
+      description: Returns default greeting message
+      operationId: getSlash
+      tags:
+        - slash
+      responses:
+        '200':
+          description: A default greeting message.
+          content:
+            application/json:
+              schema:
+                type: object
+  /api:
+    get:
+      description: Returns default greeting message from api
+      operationId: getApi
+      tags:
+        - api
+      responses:
+        '200':
+          description: A default greeting message from api.
+          content:
+            application/json:
+              schema:
+                type: object
   /industrialcodes:
     get:
       description: Returns all industrial codes from the system that the user has access to
       operationId: listIndustrialcodes
       tags:
-        - Industrialcode
+        - industrialcode
       responses:
         '200':
           description: A list of industrial codes.
@@ -32,7 +63,7 @@ paths:
       description: Create an industrial code
       operationId: createIndustrialcodes
       tags:
-        - Industrialcode
+        - industrialcode
       responses:
         '201':
           description: Created
@@ -57,7 +88,7 @@ paths:
         user has access to
       operationId: getIndustrialcode
       tags:
-        - Industrialcode
+        - industrialcode
       parameters:
         - name: id
           in: path
@@ -78,7 +109,7 @@ paths:
       description: Update an industrial code
       operationId: updateIndustrialcode
       tags:
-        - Industrialcode
+        - industrialcode
       parameters:
         - name: id
           in: path
@@ -107,7 +138,7 @@ paths:
       description: deletes a single industrial code based on the ID supplied
       operationId: deleteIndustrialcode
       tags:
-        - Industrialcode
+        - industrialcode
       parameters:
         - name: id
           in: path
@@ -119,8 +150,6 @@ paths:
       responses:
         '204':
           description: industrial code deleted
-servers:
-  - url: 'http://localhost:8080'
 components:
   schemas:
     industrialcode:
