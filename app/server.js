@@ -130,6 +130,20 @@ const industrialcodes = {
   }
 };
 
+const api = {
+  default: (ctx) => {
+    ctx.body = {'message': 'Hello from api!'}
+  }
+};
+
+const slash = {
+  default: (ctx) => {
+    ctx.body = {'message': 'Hello from example-api slash!'}
+  }
+};
+
+app.use(_.get('/', slash.default));
+app.use(_.get('/api', api.default));
 app.use(_.get('/api/industrialcodes', industrialcodes.list));
 app.use(_.post('/api/industrialcodes', industrialcodes.create));
 app.use(_.get('/api/industrialcodes/:id', industrialcodes.show));
