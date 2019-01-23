@@ -17,8 +17,8 @@
     "lint": "./node_modules/.bin/speccy lint ./openAPI/industrialcodes_3.0.yaml"
   },
   "dependencies": {
-    "hot-shots": "^5.9.0",
-    "koa": "^2.5.2",
+    "hot-shots": "^6.1.1",
+    "koa": "^2.6.2",
     "koa-bodyparser": "^4.2.1",
     "koa-logger": "^3.2.0",
     "koa-route": "^3.2.0",
@@ -26,13 +26,13 @@
     "response-time": "^2.3.2"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "chakram": "^1.5.0",
     "cross-env": "^5.2.0",
-    "cucumber": "^5.0.2",
+    "cucumber": "^5.1.0",
     "mocha": "^5.2.0",
-    "nodemon": "^1.18.3",
+    "nodemon": "^1.18.9",
     "oatts": "^1.2.3",
-    "speccy": "^0.8.1"
+    "speccy": "^0.9.0"
   }
 }
