@@ -11,7 +11,7 @@ The example-API is also available as a docker-image. To run it:
 ```
 docker run -d -p 8080:8080 informasjonsforvaltning/example-api
 ```
-Open your browser and navigate to http://localhost:8080/industrialcodes
+Open your browser and navigate to http://localhost:8080/api/industrialcodes
 or e.g.
 ```
 curl -i -X GET http://localhost:8080/api/industrialcodes -w "\n"
