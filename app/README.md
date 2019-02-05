@@ -20,7 +20,7 @@ curl \
   --include \
   --header "Content-Type: application/json"  \
   --request POST \
-  --data '{"name":"Garfield","species":"cat"}' \
+  --data '{"industrialcode":"01.120","description":"Dyrking av ris"}' \
   --url http://localhost:8080/industrialcodes \
   --write-out "\n"
 ```
