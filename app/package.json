@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "hot-shots": "^6.1.1",
-    "koa": "^2.6.2",
+    "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-logger": "^3.2.0",
     "koa-route": "^3.2.0",
@@ -32,7 +32,7 @@
     "cucumber": "^5.1.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.9",
-    "oatts": "^1.2.3",
+    "oatts": "^1.2.4",
     "speccy": "^0.9.0"
   }
 }
