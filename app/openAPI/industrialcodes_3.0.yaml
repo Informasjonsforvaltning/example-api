@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.0.2
 info:
   version: 1.0.0
   title: Example API
@@ -11,9 +11,9 @@ info:
     name: Norsk lisens for offentlige data (NLOD) 2.0
     url: https://data.norge.no/nlod/no/2.0
 tags:
+  - name: api
   - name: industrialcode
   - name: slash
-  - name: api
 servers:
   - url: http://br-07776l.brreg.no:8080
     description: Development server
@@ -95,7 +95,8 @@ paths:
           required: true
           description: The id of the industrial code to retrieve
           schema:
-            type: string
+            type: number
+            example: 1
       responses:
         '200':
           description: An industrial code with the given id.
@@ -116,7 +117,8 @@ paths:
           required: true
           description: The id of the industrial code to update
           schema:
-            type: string
+            type: number
+            default: 1
       responses:
         '204':
           description: Updated
@@ -145,8 +147,8 @@ paths:
           description: ID of industrial code to delete
           required: true
           schema:
-            type: integer
-            format: int64
+            type: number
+            default: 1
       responses:
         '204':
           description: industrial code deleted
@@ -160,9 +162,11 @@ components:
         - description
       properties:
         id:
-          type: integer
-          format: int64
+          type: string
+          example: "1"
         industrialcode:
           type: string
+          example: "01.120"
         description:
           type: string
+          example: Dyrking av ris

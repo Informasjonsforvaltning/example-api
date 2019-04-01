@@ -1,7 +1,7 @@
 # OpenAPI specification
 
 ## Validate the specification files
-We use [speccy](https://github.com/wework/speccy) to ensure specs are valid.
+We use [spectral](https://github.com/stoplightio/spectral) to ensure specs are valid.
 
 To validate do the following:
 ```
