@@ -7,7 +7,7 @@ fs.readFile( __dirname + '/nace_beskrivelse.tab', function (err, data) {
   }
 
 // Split data into array by lines:
-  var l = data.toString().split('\r\n');
+  var l = data.toString().split('\n');
   for (var i = 0; i < l.length; i++) {
     // Split the line into array by tab
     var a = l[i].split('\t');
