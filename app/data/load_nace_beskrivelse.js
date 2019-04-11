@@ -1,42 +1,43 @@
-var http = require('http');
-var fs = require('fs');
+var http = require('http')
+var fs = require('fs')
+var path = require('path')
 
-fs.readFile( __dirname + '/nace_beskrivelse.tab', function (err, data) {
+fs.readFile(path.join(__dirname, '/nace_beskrivelse.tab'), function (err, data) {
   if (err) {
-    throw err;
+    throw err
   }
 
-// Split data into array by lines:
-  var l = data.toString().split('\n');
+  // Split data into array by lines:
+  var l = data.toString().split('\n')
   for (var i = 0; i < l.length; i++) {
     // Split the line into array by tab
-    var a = l[i].split('\t');
+    var a = l[i].split('\t')
 
     // Create a Json object:
-    var o;
+    var o
     if (!a[2]) {
       o = JSON.stringify({
         industrialcode: a[0], description: a[1]
-      });
+      })
     } else {
       o = JSON.stringify({
         industrialcode: a[0], description: a[1] + ' ' + a[2]
-      });
+      })
     }
 
-    console.log('Json: ', o);
+    console.log('Json: ', o)
 
     // Post the object to our endpoint
     var request = new http.ClientRequest({
-      hostname: "localhost",
+      hostname: 'localhost',
       port: 8080,
-      path: "/api/industrialcodes",
-      method: "POST",
+      path: '/api/industrialcodes',
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        "Content-Lenght": Buffer.byteLength(o)
+        'Content-Type': 'application/json',
+        'Content-Lenght': Buffer.byteLength(o)
       }
-    });
-    request.end(o);
+    })
+    request.end(o)
   };
-});
+})

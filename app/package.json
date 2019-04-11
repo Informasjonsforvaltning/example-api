@@ -22,8 +22,7 @@
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-logger": "^3.2.0",
-    "koa-route": "^3.2.0",
-    "response-time": "^2.3.2"
+    "koa-route": "^3.2.0"
   },
   "devDependencies": {
     "@stoplight/spectral": "^2.0.6",
