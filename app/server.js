@@ -29,12 +29,12 @@ app.use(async (ctx, next) => {
     metrics.timing(`industrialcodes.timer_${ctx.method}_${ctx.url}`, ms)
     metrics.increment(`industrialcodes.counter_${ctx.method}_${ctx.url}`)
     metrics.gauge('industrialcodes.gauge_numberofindustrialcodes', db.length)
-  } else {
+  } else if (process.env.NODE_ENV === 'test') {
     console.log(`industrialcodes.timer_${ctx.method}_${ctx.url} - ${ms}`)
   }
 })
 
-app.use(logger())
+process.env.NODE_ENV !== 'ci' && app.use(logger())
 app.use(bodyParser())
 
 const db = []
@@ -62,7 +62,7 @@ const industrialcodes = {
   list: (ctx) => {
     // We accept a query on 'industrialcode':
     if (ctx.query.industrialcode) {
-      console.log('searching for industrialcode', ctx.query.industrialcode)
+      process.env.NODE_ENV === 'dev' && console.log('searching for industrialcode', ctx.query.industrialcode)
       var codeRes = []
       for (var i = 0; i < db.length; i++) {
         if (db[i].industrialcode && db[i].industrialcode === ctx.query.industrialcode) {
@@ -72,7 +72,7 @@ const industrialcodes = {
       ctx.body = codeRes
     } else if (ctx.query.description) {
       // We also accept a query on 'description':
-      console.log('searching for description', ctx.query.description)
+      process.env.NODE_ENV === 'dev' && console.log('searching for description', ctx.query.description)
       var descriptionRes = []
       for (var j = 0; j < db.length; j++) {
         if (db[j].description && db[j].description.toLowerCase().includes(ctx.query.description.toLowerCase())) {
@@ -86,7 +86,7 @@ const industrialcodes = {
   },
 
   create: (ctx) => {
-    console.log('Creating: ', ctx.request.body)
+    process.env.NODE_ENV === 'dev' && console.log('Creating: ', ctx.request.body)
     var index = db.push(ctx.request.body)
     db[index - 1].id = ++maxId
     ctx.set('Location', 'http://localhost:8080/api/industrialcodes/' + ctx.request.body.id)
@@ -94,6 +94,7 @@ const industrialcodes = {
   },
 
   show: (ctx, id) => {
+    process.env.NODE_ENV === 'dev' && console.log('Showing: ', id)
     var industrialcode = db.find(o => o.id === parseInt(id))
     if (!industrialcode) return ctx.throw(404, 'cannot find that industrialcode')
     if (ctx.accepts('text/html')) {
@@ -105,7 +106,7 @@ const industrialcodes = {
   },
 
   update: (ctx, id) => {
-    console.log('Updating: ', id, ' ', ctx.request.body)
+    process.env.NODE_ENV === 'dev' && console.log('Updating: ', id, ' ', ctx.request.body)
     var industrialcode = db.find(o => o.id === parseInt(id))
     if (!industrialcode) return ctx.throw(404, 'cannot find that industrialcode')
     var index = db.indexOf(industrialcode)
@@ -117,7 +118,7 @@ const industrialcodes = {
   },
 
   delete: (ctx, id) => {
-    console.log('Deleting: ', id)
+    process.env.NODE_ENV === 'dev' && console.log('Deleting: ', id)
     var industrialcode = db.find(o => o.id === parseInt(id))
     if (!industrialcode) return ctx.throw(404, 'cannot find that industrialcode')
     var index = db.indexOf(industrialcode)
@@ -128,20 +129,6 @@ const industrialcodes = {
   }
 }
 
-const api = {
-  default: (ctx) => {
-    ctx.body = { 'message': 'Hello from api!' }
-  }
-}
-
-const slash = {
-  default: (ctx) => {
-    ctx.body = { 'message': 'Hello from example-api slash!' }
-  }
-}
-
-app.use(_.get('/', slash.default))
-app.use(_.get('/api', api.default))
 app.use(_.get('/api/industrialcodes', industrialcodes.list))
 app.use(_.post('/api/industrialcodes', industrialcodes.create))
 app.use(_.get('/api/industrialcodes/:id', industrialcodes.show))
@@ -150,5 +137,12 @@ app.use(_.delete('/api/industrialcodes/:id', industrialcodes.delete))
 
 const server = app.listen(8080, function () {
   console.log('listening on port 8080')
+})
+
+const io = require('socket.io')(server)
+io.on('connection', (socketServer) => {
+  socketServer.on('npmStop', () => {
+    process.exit(0)
+  })
 })
 module.exports = server

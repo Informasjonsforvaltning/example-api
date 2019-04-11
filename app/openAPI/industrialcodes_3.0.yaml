@@ -15,36 +15,10 @@ tags:
   - name: industrialcode
   - name: slash
 servers:
-  - url: http://br-07776l.brreg.no:8080
+  - url: http://localhost:8080/api/industrialcodes
     description: Development server
 paths:
   /:
-    get:
-      description: Returns default greeting message
-      operationId: getSlash
-      tags:
-        - slash
-      responses:
-        '200':
-          description: A default greeting message.
-          content:
-            application/json:
-              schema:
-                type: object
-  /api:
-    get:
-      description: Returns default greeting message from api
-      operationId: getApi
-      tags:
-        - api
-      responses:
-        '200':
-          description: A default greeting message from api.
-          content:
-            application/json:
-              schema:
-                type: object
-  /industrialcodes:
     get:
       description: Returns all industrial codes from the system that the user has access to
       operationId: listIndustrialcodes
@@ -81,7 +55,7 @@ paths:
                 description:
                   type: string
         description: The industrial code to create
-  '/industrialcodes/{id}':
+  '/{id}':
     get:
       description: >-
         Returns an industrial code with the given id from the system that the
@@ -162,8 +136,8 @@ components:
         - description
       properties:
         id:
-          type: string
-          example: "1"
+          type: number
+          example: 1
         industrialcode:
           type: string
           example: "01.120"

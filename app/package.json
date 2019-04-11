@@ -12,20 +12,27 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint .",
     "dev": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon server.js",
-    "generateTest": "node ./test/generateTest.js",
-    "test": "mocha --exit",
+    "generateTest": "node ./openAPI/generateTest.js",
+    "start-test": "mocha --exit",
+    "test": "npm-run-all start-test stop",
+    "start-server": "cross-env NODE_ENV=ci node server.js",
     "start": "cross-env NODE_ENV=production node server.js",
-    "lint-OAS": "./node_modules/.bin/spectral lint ./openAPI/industrialcodes_3.0.yaml"
+    "lint-OAS": "./node_modules/.bin/spectral lint ./openAPI/industrialcodes_3.0.yaml",
+    "stop": "node server.stop.js",
+    "ci": "npm-run-all --parallel start-server test"
   },
   "dependencies": {
     "hot-shots": "^6.2.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-logger": "^3.2.0",
-    "koa-route": "^3.2.0"
+    "koa-route": "^3.2.0",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
   },
   "devDependencies": {
     "@stoplight/spectral": "^2.0.6",
+    "api-spec-converter": "^2.7.32",
     "chakram": "^1.5.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.16.0",
@@ -36,6 +43,8 @@
     "eslint-plugin-standard": "^4.0.0",
     "mocha": "^6.1.2",
     "nodemon": "^1.18.11",
-    "oatts": "^1.2.4"
+    "npm-run-all": "^4.1.5",
+    "oatts": "^1.2.4",
+    "wait-port": "^0.2.2"
   }
 }

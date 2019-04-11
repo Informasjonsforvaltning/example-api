@@ -1,0 +1,147 @@
+swagger: '2.0'
+info:
+  contact:
+    name: Informasjonsforvaltning API Team
+  description: >-
+    An example API that demonstrates REST-api implementation best practice in
+    Brønnøysundregistrene
+  license:
+    name: Norsk lisens for offentlige data (NLOD) 2.0
+    url: 'https://data.norge.no/nlod/no/2.0'
+  title: Example API
+  version: 1.0.0
+host: 'localhost:8080'
+basePath: /api/industrialcodes
+schemes:
+  - http
+paths:
+  /:
+    get:
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: A list of industrial codes.
+          schema:
+            items:
+              $ref: '#/definitions/industrialcode'
+            type: array
+      tags:
+        - industrialcode
+      description: Returns all industrial codes from the system that the user has access to
+      operationId: listIndustrialcodes
+    post:
+      consumes:
+        - application/json
+      parameters:
+        - description: The industrial code to create
+          in: body
+          name: body
+          schema:
+            properties:
+              description:
+                type: string
+              industrialcode:
+                type: string
+            required:
+              - industrialcode
+              - description
+            type: object
+      responses:
+        '201':
+          description: Created
+      tags:
+        - industrialcode
+      description: Create an industrial code
+      operationId: createIndustrialcodes
+  '/{id}':
+    get:
+      produces:
+        - application/json
+      parameters:
+        - description: The id of the industrial code to retrieve
+          in: path
+          name: id
+          required: true
+          type: number
+      responses:
+        '200':
+          description: An industrial code with the given id.
+          schema:
+            items:
+              $ref: '#/definitions/industrialcode'
+            type: object
+      tags:
+        - industrialcode
+      description: >-
+        Returns an industrial code with the given id from the system that the
+        user has access to
+      operationId: getIndustrialcode
+    put:
+      consumes:
+        - application/json
+      parameters:
+        - default: 1
+          description: The id of the industrial code to update
+          in: path
+          name: id
+          required: true
+          type: number
+        - description: The industrial code to update
+          in: body
+          name: body
+          schema:
+            properties:
+              description:
+                type: string
+              industrialcode:
+                type: string
+            required:
+              - industrialcode
+              - description
+            type: object
+      responses:
+        '204':
+          description: Updated
+      tags:
+        - industrialcode
+      description: Update an industrial code
+      operationId: updateIndustrialcode
+    delete:
+      parameters:
+        - default: 1
+          description: ID of industrial code to delete
+          in: path
+          name: id
+          required: true
+          type: number
+      responses:
+        '204':
+          description: industrial code deleted
+      tags:
+        - industrialcode
+      description: deletes a single industrial code based on the ID supplied
+      operationId: deleteIndustrialcode
+definitions:
+  industrialcode:
+    properties:
+      description:
+        example: Dyrking av ris
+        type: string
+      id:
+        example: 1
+        type: number
+      industrialcode:
+        example: 01.120
+        type: string
+    required:
+      - id
+      - industrialcode
+      - description
+    type: object
+tags:
+  - name: api
+  - name: industrialcode
+  - name: slash
+x-components: {}
