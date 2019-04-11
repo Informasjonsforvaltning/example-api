@@ -13,19 +13,19 @@ fs.readFile(path.join(__dirname, '/nace_beskrivelse.tab'), function (err, data) 
     // Split the line into array by tab
     var a = l[i].split('\t')
 
-    // Create a Json object:
-    var o
+    // Create a Json object as body:
+    var body
     if (!a[2]) {
-      o = JSON.stringify({
+      body = JSON.stringify({
         industrialcode: a[0], description: a[1]
       })
     } else {
-      o = JSON.stringify({
+      body = JSON.stringify({
         industrialcode: a[0], description: a[1] + ' ' + a[2]
       })
     }
 
-    console.log('Json: ', o)
+    console.log('Json: ', body)
 
     // Post the object to our endpoint
     var request = new http.ClientRequest({
@@ -35,9 +35,9 @@ fs.readFile(path.join(__dirname, '/nace_beskrivelse.tab'), function (err, data) 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Content-Lenght': Buffer.byteLength(o)
+        'Content-Lenght': Buffer.byteLength(body)
       }
     })
-    request.end(o)
+    request.end(body)
   };
 })
