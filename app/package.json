@@ -10,14 +10,15 @@
   },
   "main": "server.js",
   "scripts": {
+    "lint": "./node_modules/.bin/eslint .",
     "dev": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon server.js",
     "generateTest": "node ./test/generateTest.js",
     "test": "mocha --exit",
     "start": "cross-env NODE_ENV=production node server.js",
-    "lint": "./node_modules/.bin/spectral lint ./openAPI/industrialcodes_3.0.yaml"
+    "lint-OAS": "./node_modules/.bin/spectral lint ./openAPI/industrialcodes_3.0.yaml"
   },
   "dependencies": {
-    "hot-shots": "^6.1.1",
+    "hot-shots": "^6.2.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-logger": "^3.2.0",
@@ -28,8 +29,14 @@
     "@stoplight/spectral": "^2.0.6",
     "chakram": "^1.5.0",
     "cross-env": "^5.2.0",
-    "mocha": "^6.0.2",
-    "nodemon": "^1.18.10",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "mocha": "^6.1.2",
+    "nodemon": "^1.18.11",
     "oatts": "^1.2.4"
   }
 }
