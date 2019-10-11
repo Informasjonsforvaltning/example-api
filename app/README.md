@@ -7,6 +7,11 @@ cd example-api/app
 npm install
 npm run dev
 ```
+
+To run the contract test:
+```
+npm run ci
+```
 The example-API is also available as a docker-image. To run it:
 ```
 docker run -d -p 8080:8080 informasjonsforvaltning/example-api
