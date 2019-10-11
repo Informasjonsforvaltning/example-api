@@ -22,29 +22,29 @@
     "ci": "npm-run-all --parallel start-server test"
   },
   "dependencies": {
-    "hot-shots": "^6.2.0",
-    "koa": "^2.7.0",
+    "hot-shots": "^6.7.0",
+    "koa": "^2.8.2",
     "koa-bodyparser": "^4.2.1",
-    "koa-logger": "^3.2.0",
+    "koa-logger": "^3.2.1",
     "koa-route": "^3.2.0",
-    "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0"
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
-    "@stoplight/spectral": "^2.0.6",
-    "api-spec-converter": "^2.7.32",
+    "@stoplight/spectral": "^4.2.0",
+    "api-spec-converter": "^2.10.1",
     "chakram": "^1.5.0",
-    "cross-env": "^5.2.0",
-    "eslint": "^5.16.0",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-node": "^8.0.1",
-    "eslint-plugin-promise": "^4.1.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "mocha": "^6.1.2",
-    "nodemon": "^1.18.11",
+    "cross-env": "^6.0.3",
+    "eslint": "^6.5.1",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mocha": "^6.2.1",
+    "nodemon": "^1.19.3",
     "npm-run-all": "^4.1.5",
-    "oatts": "^1.2.4",
-    "wait-port": "^0.2.2"
+    "oatts": "^1.5.0",
+    "wait-port": "^0.2.6"
   }
 }
